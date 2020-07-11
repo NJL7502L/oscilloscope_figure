@@ -8,6 +8,8 @@ const int T_MAX = 200.0;
 const int ARR_LENGTH = 10000;
 const float T_RES = ((T_MAX - T_MIN)/(float)ARR_LENGTH);
 
+const int PWM_FRQ = 585937;
+
 int a;
 int b;
 Plotter p;
@@ -61,8 +63,8 @@ void setup() {
   // put your setup code here, to run once:
   p.AddXYGraph( "X-Y graph w/ 500 points", 500, "x axis", a, "y axis", b );
 
-  analogWriteFrequency(2,234375);
-  analogWriteFrequency(3,234375);
+  analogWriteFrequency(2,PWM_FRQ);
+  analogWriteFrequency(3,PWM_FRQ);
   Serial.begin(115200);
   
   store_parameter();
@@ -80,7 +82,7 @@ void loop() {
   a = figure[t].x_i;
   b = figure[t].y_i;
   // p.Plot();
-  delayMicroseconds(100);
+  delayMicroseconds(20);
   analogWrite(2, a);
   analogWrite(3, b);
 }
