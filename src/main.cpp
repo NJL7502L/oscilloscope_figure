@@ -6,7 +6,6 @@
 const int T_MIN = 0.0;
 const int T_MAX = 200.0;
 const int ARR_LENGTH = 10000;
-
 const float T_RES = ((T_MAX - T_MIN)/(float)ARR_LENGTH);
 
 int a;
@@ -65,12 +64,7 @@ void setup() {
   analogWriteFrequency(2,234375);
   analogWriteFrequency(3,234375);
   Serial.begin(115200);
-
-  // m_x.min = return_x(0.1);
-  // m_x.max = return_x(0.1);
-
-  // m_y.min = return_y(0.1);
-  // m_y.max = return_y(0.1);
+  
   store_parameter();
   digitalWrite(LED_BUILTIN,HIGH);
 }
