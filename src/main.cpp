@@ -20,8 +20,8 @@ void setup() {
   // put your setup code here, to run once:
   p.AddXYGraph( "X-Y graph w/ 500 points", 500, "x axis", x, "y axis", y );
 
-  analogWriteFrequency(9,234375);
-  analogWriteFrequency(10,234375);
+  analogWriteFrequency(2,234375);
+  analogWriteFrequency(3,234375);
   Serial.begin(115200);
 
   m_x.min = return_x(0.1);
@@ -74,14 +74,14 @@ void loop() {
   static float t = 0;
 
   if(t<200){
-    t+=0.1;
+    t+=0.02;
   }else{
-    t = 0.1;
+    t = 0.02;
   }
   x = mapf(return_x(t),1480.15,1662.39,0,255);
   y = mapf(return_y(t),-1003.87,-821.45,0,255);
-  p.Plot();
+  // p.Plot();
   // delay(100);
-  analogWrite(9, x);
-  analogWrite(10, y);
+  analogWrite(2, x);
+  analogWrite(3, y);
 }
