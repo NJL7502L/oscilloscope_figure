@@ -10,6 +10,9 @@
 const int PWM_FRQ = 585937;
 const int PWM_RES = 256;
 
+const int PIN_X = 2;
+const int PIN_Y = 3;
+
 float point_x;
 float point_y;
 
@@ -46,13 +49,13 @@ void flash(){
   point_x = MonsterLogo.figure[t].x;
   point_y = MonsterLogo.figure[t].y;
 
-  analogWrite(2, point_x * PWM_RES);
-  analogWrite(3, point_y * PWM_RES);
+  analogWrite(PIN_X, point_x * PWM_RES);
+  analogWrite(PIN_Y, point_y * PWM_RES);
 }
 
 void setup() {
-  analogWriteFrequency(2,PWM_FRQ);
-  analogWriteFrequency(3,PWM_FRQ);
+  analogWriteFrequency(PIN_X,PWM_FRQ);
+  analogWriteFrequency(PIN_Y,PWM_FRQ);
   
   Serial.begin(115200);
 
