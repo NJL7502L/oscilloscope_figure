@@ -38,7 +38,7 @@ public:
     };
 
     CarCoor *figure;
-    char* p;
+    const char *p;
 private:
 
     float x_min;

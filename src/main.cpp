@@ -58,15 +58,15 @@ void setup() {
 
   FusicLogo.p = "Fusic";
   FusicLogo.aspect_ratio(1,1);
-  FusicLogo.store_parameter(0,200,30000);
+  FusicLogo.store_parameter(0,200,10000);
 
   MockLogo.p = "mockmock";
   MockLogo.aspect_ratio(22,14);
-  MockLogo.store_parameter(0,200,30000);
+  MockLogo.store_parameter(0,200,10000);
 
   MonsterLogo.p = "Monster";
   MonsterLogo.aspect_ratio(10.5,15);
-  MonsterLogo.store_parameter(0,200,30000);
+  MonsterLogo.store_parameter(0,200,10000);
 
   Timer1.initialize(10);
   Timer1.attachInterrupt(flash);
