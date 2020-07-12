@@ -38,7 +38,7 @@ public:
     };
 
     CarCoor *figure;
-
+    char* p;
 private:
 
     float x_min;
@@ -47,5 +47,17 @@ private:
     float y_max;
 
     float mapf(float val, float in_min, float in_max, float out_min, float out_max);
+    void progress(int state,int i){
+        Serial.print(p);
+        Serial.print("\t:\t");
+        Serial.print(i + (state * ARR_LENGTH));
+        Serial.print("\t/\t");
+        Serial.print(ARR_LENGTH * 2);
+        Serial.print("\t:\t");
+        Serial.print(100.0*(i + (state * ARR_LENGTH))/(ARR_LENGTH * 2));
+        Serial.print("\t%");
+
+        Serial.println();
+    }
 };
 #endif

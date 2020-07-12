@@ -20,6 +20,7 @@ void setup() {
   analogWriteFrequency(3,PWM_FRQ);
   Serial.begin(115200);
 
+  FusicLogo.p = "Fusic";
   FusicLogo.aspect_ratio(1,1);
   FusicLogo.store_parameter(0,200,30000);
 }
