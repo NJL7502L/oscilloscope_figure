@@ -48,6 +48,8 @@ private:
 
     float mapf(float val, float in_min, float in_max, float out_min, float out_max);
     void progress(int state,int i){
+
+        Serial.print("\tINITIALIZE\t");
         Serial.print(p);
         Serial.print("\t:\t");
         Serial.print(i + (state * ARR_LENGTH));
