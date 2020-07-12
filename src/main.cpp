@@ -1,46 +1,43 @@
 #include <Arduino.h>
-#include "Fusiclogo.h"
+#include "FusicLogo.h"
 #include "FourierTransform.h"
 #include "Plotter.h"
 
-// const int T_MIN = 0.0;
-// const int T_MAX = 200.0;
-// const int ARR_LENGTH = 31916;
-// const float T_RES = ((T_MAX - T_MIN)/(float)ARR_LENGTH);
-
 const int PWM_FRQ = 585937;
+const int PWM_RES = 256;
 
-int a;
-int b;
+float point_x;
+float point_y;
 Plotter p;
 
-FourierTransform Fusic(return_x,return_y);
+FourierTransform FusicLogo(FusicLogo_x,FusicLogo_y);
 
 void setup() {
   p.Begin();
-  // put your setup code here, to run once:
-  p.AddXYGraph( "X-Y graph w/ 500 points", 500, "x axis", a, "y axis", b );
+  p.AddXYGraph( "X-Y graph w/ 500 points", 500, "x axis", point_x, "y axis", point_y);
 
   analogWriteFrequency(2,PWM_FRQ);
   analogWriteFrequency(3,PWM_FRQ);
   Serial.begin(115200);
 
-  digitalWrite(LED_BUILTIN,HIGH);
-  Fusic.store_parameter(0,200,30000);
+  FusicLogo.aspect_ratio(1,1);
+  FusicLogo.store_parameter(0,200,30000);
 }
 
 void loop() {
   static int t = 0;
-  if(t<Fusic.ARR_LENGTH){
+  if(t<FusicLogo.ARR_LENGTH){
     t++;
   }else{
     t = 0;
   }
 
-  a = Fusic.figure[t].x_i;
-  b = Fusic.figure[t].y_i;
+  point_x = FusicLogo.figure[t].x;
+  point_y = FusicLogo.figure[t].y;
+
+  analogWrite(2, point_x * PWM_RES);
+  analogWrite(3, point_y * PWM_RES);
+
   // p.Plot();
   delayMicroseconds(20);
-  analogWrite(2, a);
-  analogWrite(3, b);
 }

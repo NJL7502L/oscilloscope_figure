@@ -19,13 +19,22 @@ public:
     // void init(int t_min, int t_max, int arr_length);
     void store_parameter(int t_min, int t_max, int arr_length);
 
+    float aspect_x = 1;
+    float aspect_y = 1;
+
+    void aspect_ratio(float as_x,float as_y){
+        if(as_x > as_y){
+            aspect_y = as_y/as_x;
+        }else if(as_y > as_x){
+            aspect_x = as_x/as_y;
+        }
+        return;
+    }
+
     class CarCoor{
     public:
         float x;
         float y;
-
-        int x_i;
-        int y_i;
     };
 
     CarCoor *figure;
