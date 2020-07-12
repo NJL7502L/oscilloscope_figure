@@ -1,0 +1,11 @@
+#ifndef MockLogo_h
+#define MockLogo_h
+#include <Arduino.h>
+
+float MockLogo_x(float t){
+    return
+}
+float MockLogo_y(float t){
+    return
+}
+#endif
