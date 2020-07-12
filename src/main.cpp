@@ -1,7 +1,9 @@
 #include <Arduino.h>
 #include <TimerOne.h>
-#include "FusicLogo.h"
+
 #include "FourierTransform.h"
+// Figures
+#include "FusicLogo.h"
 
 const int PWM_FRQ = 585937;
 const int PWM_RES = 256;
@@ -21,6 +23,9 @@ void flash(){
 
   point_x = FusicLogo.figure[t].x;
   point_y = FusicLogo.figure[t].y;
+
+  analogWrite(2, point_x * PWM_RES);
+  analogWrite(3, point_y * PWM_RES);
 }
 
 void setup() {
@@ -38,6 +43,5 @@ void setup() {
 }
 
 void loop() {
-  analogWrite(2, point_x * PWM_RES);
-  analogWrite(3, point_y * PWM_RES);
+
 }
