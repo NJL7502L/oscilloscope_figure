@@ -30,20 +30,32 @@ void flash(){
   static int t = 0;
 
   switch (incomingByte){
+  case 'A':
+    scroll = 0;
   case 'a':
     t = ((t<FusicLogo.ARR_LENGTH) ? t+1 : 0);
     point_x = FusicLogo.figure[t].x;
     point_y = FusicLogo.figure[t].y;
     break;
+  case 'S':
+    scroll = 0;
   case 's':
     t = ((t<MockLogo.ARR_LENGTH) ? t+1 : 0);
     point_x = MockLogo.figure[t].x;
     point_y = MockLogo.figure[t].y;
     break;
+  case 'D':
+    scroll = 0;
   case 'd':
     t = ((t<MonsterLogo.ARR_LENGTH) ? t+1 : 0);
     point_x = MonsterLogo.figure[t].x;
     point_y = MonsterLogo.figure[t].y;
+    break;
+  case 'Q':
+    scroll = 0;
+  case 'q':
+    point_x = 0.5;
+    point_y = 0.5;
     break;
   default:
     break;
@@ -83,12 +95,10 @@ void setup() {
 void loop() {
 	if (Serial.available() > 0) {
 		incomingByte = Serial.read();
-
 		Serial.println(incomingByte);
 	}
 
   if(elap_scroll > SCROLL_SPEED) elap_scroll = 0;
   scroll = (elap_scroll / SCROLL_SPEED);
 
-  // delay(1);
 }
