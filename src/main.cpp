@@ -61,13 +61,15 @@ void flash(){
     break;
   }
 
-  if(point_x + scroll < 1){
-    analogWrite(PIN_X, (point_x + scroll) * PWM_RES);
-  }else{
-    analogWrite(PIN_X, (point_x + scroll - 1) * PWM_RES);
-  }
+  // if(point_x + scroll < 1){
+  //   analogWrite(PIN_X, (point_x + scroll) * PWM_RES);
+  // }else{
+  //   analogWrite(PIN_X, (point_x + scroll - 1) * PWM_RES);
+  // }
+  // analogWrite(PIN_Y, point_y * PWM_RES);
 
-  analogWrite(PIN_Y, point_y * PWM_RES);
+  analogWrite(PIN_X, (point_x * scroll + 0.5 + scroll * -0.5) * PWM_RES);
+  analogWrite(PIN_Y, (point_y* scroll + 0.5 + scroll * -0.5) * PWM_RES);
 }
 
 void setup() {
