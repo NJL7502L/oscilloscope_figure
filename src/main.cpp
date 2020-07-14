@@ -10,8 +10,14 @@
 const int PWM_FRQ = 585937;
 const int PWM_RES = 256;
 
-const int PIN_X = 2;
-const int PIN_Y = 3;
+const int PIN_X = 5;
+const int PIN_Y = 6;
+
+const float SCROLL_SPEED = 1000;
+
+char incomingByte = 'a';
+elapsedMillis elap_scroll = 0;
+float scroll = 0;
 
 float point_x;
 float point_y;
@@ -22,34 +28,33 @@ FourierTransform MonsterLogo(MonsterLogo_x,MonsterLogo_y);
 
 void flash(){
   static int t = 0;
-  // if(t<FusicLogo.ARR_LENGTH){
-  //   t++;
-  // }else{
-  //   t = 0;
-  // }
 
-  // point_x = FusicLogo.figure[t].x;
-  // point_y = FusicLogo.figure[t].y;
-
-  // if(t<MockLogo.ARR_LENGTH){
-  //   t++;
-  // }else{
-  //   t = 0;
-  // }
-
-  // point_x = MockLogo.figure[t].x;
-  // point_y = MockLogo.figure[t].y;
-
-  if(t<MonsterLogo.ARR_LENGTH){
-    t++;
-  }else{
-    t = 0;
+  switch (incomingByte){
+  case 'a':
+    t = ((t<FusicLogo.ARR_LENGTH) ? t+1 : 0);
+    point_x = FusicLogo.figure[t].x;
+    point_y = FusicLogo.figure[t].y;
+    break;
+  case 's':
+    t = ((t<MockLogo.ARR_LENGTH) ? t+1 : 0);
+    point_x = MockLogo.figure[t].x;
+    point_y = MockLogo.figure[t].y;
+    break;
+  case 'd':
+    t = ((t<MonsterLogo.ARR_LENGTH) ? t+1 : 0);
+    point_x = MonsterLogo.figure[t].x;
+    point_y = MonsterLogo.figure[t].y;
+    break;
+  default:
+    break;
   }
 
-  point_x = MonsterLogo.figure[t].x;
-  point_y = MonsterLogo.figure[t].y;
+  if(point_x + scroll < 1){
+    analogWrite(PIN_X, (point_x + scroll) * PWM_RES);
+  }else{
+    analogWrite(PIN_X, (point_x + scroll - 1) * PWM_RES);
+  }
 
-  analogWrite(PIN_X, point_x * PWM_RES);
   analogWrite(PIN_Y, point_y * PWM_RES);
 }
 
@@ -76,5 +81,14 @@ void setup() {
 }
 
 void loop() {
+	if (Serial.available() > 0) {
+		incomingByte = Serial.read();
 
+		Serial.println(incomingByte);
+	}
+
+  if(elap_scroll > SCROLL_SPEED) elap_scroll = 0;
+  scroll = (elap_scroll / SCROLL_SPEED);
+
+  // delay(1);
 }
