@@ -68,8 +68,15 @@ void flash(){
   // }
   // analogWrite(PIN_Y, point_y * PWM_RES);
 
-  analogWrite(PIN_X, (point_x * scroll + 0.5 + scroll * -0.5) * PWM_RES);
-  analogWrite(PIN_Y, (point_y* scroll + 0.5 + scroll * -0.5) * PWM_RES);
+  // analogWrite(PIN_X, (point_x * scroll + 0.5 + scroll * -0.5) * PWM_RES);
+  // analogWrite(PIN_Y, (point_y* scroll + 0.5 + scroll * -0.5) * PWM_RES);
+
+  point_x -= 0.5;
+  point_y -= 0.5;
+  scroll = scroll * PI * 2;
+
+  analogWrite(PIN_X, ((point_x * cos(scroll) - point_y * sin(scroll)) + 0.5) * PWM_RES);
+  analogWrite(PIN_Y, ((point_y * cos(scroll) + point_x * sin(scroll)) + 0.5) * PWM_RES);
 }
 
 void setup() {
