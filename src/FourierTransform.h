@@ -38,6 +38,10 @@ public:
     };
 
     CarCoor *figure;
+    CarCoor getFigure(float t){
+        int arrIndex = mapf(t,0,1,0,ARR_LENGTH);
+        return figure[arrIndex];
+    }
     const char *p;
 private:
 
