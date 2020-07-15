@@ -34,11 +34,10 @@ void FourierTransform::store_parameter(int t_min, int t_max, int arr_length){
             y_min = min(y_min,figure[i].y);
             y_max = max(y_max,figure[i].y);
         }
-        progress(0,i);
+        progress(i);
     }
     for (int i = 0; i < ARR_LENGTH; i++){
         figure[i].x = mapf(figure[i].x,x_min,x_max,0.5 - (aspect_x/2.0), 0.5 + (aspect_x/2.0)) - 0.5;
         figure[i].y = mapf(figure[i].y,y_min,y_max,0.5 - (aspect_y/2.0), 0.5 + (aspect_y/2.0)) - 0.5;
-        progress(1,i);
     }
 }

@@ -9,25 +9,26 @@
 #include "FourierFigure/MonsterLogo.h"
 
 elapsedMillis elapAnimationTimer = 0;
-const double ANIMATION_DURATION = 1000;
+const double ANIMATION_DURATION = 1500;
 double animationProgress = 1;
 
 elapsedMicros elapDrawingTimer = 0;
 const double DRAWING_DURATION = 150000;
 double drawingProgress = 0;
 
-char incomingByte = 'a';
-
-FourierTransform FusicLogo(FusicLogo_x,FusicLogo_y);
-FourierTransform MockLogo(MockLogo_x,MockLogo_y);
-FourierTransform MonsterLogo(MonsterLogo_x,MonsterLogo_y);
-
 enum{
   FUSIC     = 'A',  fusic     = 'a',
   MOCKMOCK  = 'S',  mockmock  = 's',
   MONSTER   = 'D',  monster   = 'd',
-  STOP      = 'Q',  stop      = 'q',
+  INIT      = 'Q',  init      = 'q',
 };
+
+char protFigure = init;
+char nextFigure = init;
+
+FourierTransform FusicLogo(FusicLogo_x,FusicLogo_y);
+FourierTransform MockLogo(MockLogo_x,MockLogo_y);
+FourierTransform MonsterLogo(MonsterLogo_x,MonsterLogo_y);
 
 void setup() {
   pinInit();
@@ -49,37 +50,44 @@ void setup() {
 
 void loop() {
 	if (Serial.available() > 0) {
-		incomingByte = Serial.read();
-		Serial.println(incomingByte);
+    elapAnimationTimer = 0;
+		nextFigure = Serial.read();
+		Serial.println(nextFigure);
 	}
 
-  if(elapAnimationTimer > ANIMATION_DURATION) elapAnimationTimer = 0;
-  animationProgress = (elapAnimationTimer / ANIMATION_DURATION);
+  if(elapAnimationTimer >= ANIMATION_DURATION) elapAnimationTimer = ANIMATION_DURATION;
+  animationProgress = 0.5*(cos(2*PI*(elapAnimationTimer / ANIMATION_DURATION)) + 1);
 
   if(elapDrawingTimer > DRAWING_DURATION) elapDrawingTimer = 0;
   drawingProgress = (elapDrawingTimer / DRAWING_DURATION);
 
-  switch (incomingByte){
+  if(elapAnimationTimer>(ANIMATION_DURATION/2)){
+    protFigure = nextFigure;
+  }
+
+  switch (protFigure){
   case FUSIC:
   case fusic:
     point = FusicLogo.getFigure(drawingProgress);
+    // point = zoom(animationProgress,point);
     break;
   case MOCKMOCK:
   case mockmock:
     point = MockLogo.getFigure(drawingProgress);
+    // point = roll(animationProgress,point);
     break;
   case MONSTER:
   case monster:
     point = MonsterLogo.getFigure(drawingProgress);
     break;
-  case STOP:
-  case stop:
+  case INIT:
+  case init:
     point = initial(drawingProgress);
     break;
   default:
     break;
   }
-  if((incomingByte>= 'A') && (incomingByte<='Z')) animationProgress = 1;
 
+  // plot(point);
   plot(zoom(animationProgress,roll(animationProgress,point)));
 }

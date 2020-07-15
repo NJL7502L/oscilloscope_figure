@@ -8,7 +8,7 @@ FourierTransform::CarCoor point;
 
 FourierTransform::CarCoor roll(double t,FourierTransform::CarCoor point){
     FourierTransform::CarCoor retVal;
-    const double rollDeg = 90;
+    const double rollDeg = 360;
 
     double rollRad = rollDeg * ((2*PI)/360);
 

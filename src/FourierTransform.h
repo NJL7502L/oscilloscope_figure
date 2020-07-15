@@ -51,17 +51,11 @@ private:
     double y_max;
 
     double mapf(double val, double in_min, double in_max, double out_min, double out_max);
-    void progress(int state,int i){
+    void progress(int i){
 
-        Serial.print("\tINITIALIZE\t");
         Serial.print(p);
         Serial.print("\t:\t");
-        Serial.print(i + (state * ARR_LENGTH));
-        Serial.print("\t/\t");
-        Serial.print(ARR_LENGTH * 2);
-        Serial.print("\t:\t");
-        Serial.print(100.0*(i + (state * ARR_LENGTH))/(ARR_LENGTH * 2));
-        Serial.print("\t%");
+        Serial.print(100.0*(i/(double)ARR_LENGTH));
 
         Serial.println();
     }
