@@ -2,12 +2,12 @@
 #include <Arduino.h>
 
 
-FourierTransform::FourierTransform(float (*ret_x)(float), float (*ret_y)(float)){
+FourierTransform::FourierTransform(double (*ret_x)(double), double (*ret_y)(double)){
     return_x = ret_x;
     return_y = ret_y;
 }
 
-float FourierTransform::mapf(float val, float in_min, float in_max, float out_min, float out_max){
+double FourierTransform::mapf(double val, double in_min, double in_max, double out_min, double out_max){
     return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
@@ -16,7 +16,7 @@ void FourierTransform::store_parameter(int t_min, int t_max, int arr_length){
     T_MAX = t_max;
     ARR_LENGTH = arr_length;
 
-    T_RES = ((T_MAX - T_MIN)/(float)ARR_LENGTH);
+    T_RES = ((T_MAX - T_MIN)/(double)ARR_LENGTH);
     figure = new CarCoor[ARR_LENGTH];
 
     for (int i = 0; i < ARR_LENGTH; i++){

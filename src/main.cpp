@@ -9,12 +9,12 @@
 #include "FourierFigure/MonsterLogo.h"
 
 elapsedMillis elapAnimationTimer = 0;
-const float ANIMATION_DURATION = 1000;
-float animationProgress = 1;
+const double ANIMATION_DURATION = 1000;
+double animationProgress = 1;
 
 elapsedMicros elapDrawingTimer = 0;
-const float DRAWING_DURATION = 100000;
-float drawingProgress = 0;
+const double DRAWING_DURATION = 150000;
+double drawingProgress = 0;
 
 char incomingByte = 'a';
 
@@ -74,8 +74,7 @@ void loop() {
     break;
   case STOP:
   case stop:
-    point.x = 0.5;
-    point.y = 0.5;
+    point = initial(drawingProgress);
     break;
   default:
     break;

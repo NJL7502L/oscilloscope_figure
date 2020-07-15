@@ -2,10 +2,10 @@
 #define MockLogo_h
 #include <Arduino.h>
 
-float MockLogo_x(float t){
+double MockLogo_x(double t){
     return
 }
-float MockLogo_y(float t){
+double MockLogo_y(double t){
     return
 }
 #endif

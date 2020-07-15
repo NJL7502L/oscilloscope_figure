@@ -9,20 +9,20 @@ public:
     int T_MAX = 200;
     int ARR_LENGTH = 10000;
 
-    float T_RES = ((T_MAX - T_MIN)/(float)ARR_LENGTH);
+    double T_RES = ((T_MAX - T_MIN)/(double)ARR_LENGTH);
 
-    float (*return_x)(float);
-    float (*return_y)(float);
+    double (*return_x)(double);
+    double (*return_y)(double);
 
-    FourierTransform(float (*ret_x)(float), float (*ret_y)(float));
+    FourierTransform(double (*ret_x)(double), double (*ret_y)(double));
     
     // void init(int t_min, int t_max, int arr_length);
     void store_parameter(int t_min, int t_max, int arr_length);
 
-    float aspect_x = 1;
-    float aspect_y = 1;
+    double aspect_x = 1;
+    double aspect_y = 1;
 
-    void aspect_ratio(float as_x,float as_y){
+    void aspect_ratio(double as_x,double as_y){
         if(as_x > as_y){
             aspect_y = as_y/as_x;
         }else if(as_y > as_x){
@@ -33,24 +33,24 @@ public:
 
     class CarCoor{
     public:
-        float x;
-        float y;
+        double x;
+        double y;
     };
 
     CarCoor *figure;
-    CarCoor getFigure(float t){
+    CarCoor getFigure(double t){
         int arrIndex = mapf(t,0,1,0,ARR_LENGTH);
         return figure[arrIndex];
     }
     const char *p;
 private:
 
-    float x_min;
-    float x_max;
-    float y_min;
-    float y_max;
+    double x_min;
+    double x_max;
+    double y_min;
+    double y_max;
 
-    float mapf(float val, float in_min, float in_max, float out_min, float out_max);
+    double mapf(double val, double in_min, double in_max, double out_min, double out_max);
     void progress(int state,int i){
 
         Serial.print("\tINITIALIZE\t");
