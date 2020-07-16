@@ -8,6 +8,7 @@
 #include "FourierFigure/MockLogo.h"
 #include "FourierFigure/MonsterLogo.h"
 #include "FourierFigure/Title.h"
+#include "FourierFigure/Nail.h"
 
 elapsedMillis elapAnimationTimer = 0;
 const double ANIMATION_DURATION = 1500;
@@ -22,6 +23,7 @@ enum{
   mockmock  = 's',
   monster   = 'd',
   title     = 'f',
+  nail      = 'g',
   init      = 'q',
 };
 
@@ -32,6 +34,7 @@ FourierTransform FusicLogo(FusicLogo_x,FusicLogo_y);
 FourierTransform MockLogo(MockLogo_x,MockLogo_y);
 FourierTransform MonsterLogo(MonsterLogo_x,MonsterLogo_y);
 FourierTransform Title(Title_x,Title_y);
+FourierTransform Nail(Nail_x,Nail_y);
 
 void setup() {
   pinInit();
@@ -53,6 +56,10 @@ void setup() {
   Title.p = "Title";
   Title.aspect_ratio(35,13);
   Title.store_parameter(0,50,5000);
+
+  Nail.p = "Nail";
+  Nail.aspect_ratio(1,1);
+  Nail.store_parameter(0,50,5000);
 }
 
 void loop() {
@@ -86,6 +93,9 @@ void loop() {
     break;
   case title:
     point = Title.getFigure(drawingProgress);
+    break;
+  case nail:
+    point = Nail.getFigure(drawingProgress);
     break;
   case init:
     point = initial(drawingProgress);
