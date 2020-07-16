@@ -17,10 +17,10 @@ const double DRAWING_DURATION = 150000;
 double drawingProgress = 0;
 
 enum{
-  FUSIC     = 'A',  fusic     = 'a',
-  MOCKMOCK  = 'S',  mockmock  = 's',
-  MONSTER   = 'D',  monster   = 'd',
-  INIT      = 'Q',  init      = 'q',
+  fusic     = 'a',
+  mockmock  = 's',
+  monster   = 'd',
+  init      = 'q',
 };
 
 char protFigure = init;
@@ -66,21 +66,17 @@ void loop() {
   }
 
   switch (protFigure){
-  case FUSIC:
   case fusic:
     point = FusicLogo.getFigure(drawingProgress);
     // point = zoom(animationProgress,point);
     break;
-  case MOCKMOCK:
   case mockmock:
     point = MockLogo.getFigure(drawingProgress);
     // point = roll(animationProgress,point);
     break;
-  case MONSTER:
   case monster:
     point = MonsterLogo.getFigure(drawingProgress);
     break;
-  case INIT:
   case init:
     point = initial(drawingProgress);
     break;
