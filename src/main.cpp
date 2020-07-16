@@ -9,7 +9,7 @@
 #include "FourierFigure/MonsterLogo.h"
 
 elapsedMillis elapAnimationTimer = 0;
-const double ANIMATION_DURATION = 1500;
+const double ANIMATION_DURATION = 500;
 double animationProgress = 1;
 
 elapsedMicros elapDrawingTimer = 0;
@@ -26,26 +26,46 @@ enum{
 char protFigure = init;
 char nextFigure = init;
 
-FourierTransform FusicLogo(FusicLogo_x,FusicLogo_y);
-FourierTransform MockLogo(MockLogo_x,MockLogo_y);
-FourierTransform MonsterLogo(MonsterLogo_x,MonsterLogo_y);
+FourierTransform::CarCoorFunction fugireFusic[] = {
+  {FusicLogo_x},
+  {FusicLogo_y}
+};
+FourierTransform FusicLogo(fugireFusic);
+
+// FourierTransform::func_ptr_d mock_x[] = {MockLogo_x};
+// FourierTransform::func_ptr_d mock_y[] = {MockLogo_y};
+// FourierTransform MockLogo(fugireFusic);
+
+// FourierTransform::func_ptr_d mos_x[] = {MonsterLogo_x};
+// FourierTransform::func_ptr_d mos_y[] = {MonsterLogo_y};
+// FourierTransform MonsterLogo(fugireFusic);
 
 void setup() {
   pinInit();
 
   Serial.begin(115200);
-
+  
+  digitalWrite(LED_BUILTIN,HIGH);
+  // FusicLogo.return_x[]= {FusicLogo_x};
   FusicLogo.p = "Fusic";
-  FusicLogo.aspect_ratio(1,1);
-  FusicLogo.store_parameter(0,200,10000);
+  FusicLogo.aspect_ratio({1,1});
+  FusicLogo.store_parameter(0,200,5000);
 
-  MockLogo.p = "mockmock";
-  MockLogo.aspect_ratio(22,14);
-  MockLogo.store_parameter(0,200,10000);
+  digitalWrite(LED_BUILTIN,LOW);
 
-  MonsterLogo.p = "Monster";
-  MonsterLogo.aspect_ratio(10.5,15);
-  MonsterLogo.store_parameter(0,200,10000);
+  // MockLogo.p = "mockmock";
+  // MockLogo.aspect_ratio({22,14});
+  // MockLogo.store_parameter(0,200,5000);
+
+  // digitalWrite(LED_BUILTIN,HIGH);
+
+  // MonsterLogo.p = "Monster";
+  // MonsterLogo.aspect_ratio({10.5,15});
+  // MonsterLogo.store_parameter(0,200,5000);
+
+  digitalWrite(LED_BUILTIN,LOW);
+
+  digitalWrite(LED_BUILTIN,HIGH);
 }
 
 void loop() {
@@ -73,12 +93,12 @@ void loop() {
     break;
   case MOCKMOCK:
   case mockmock:
-    point = MockLogo.getFigure(drawingProgress);
+    // point = MockLogo.getFigure(drawingProgress);
     // point = roll(animationProgress,point);
     break;
   case MONSTER:
   case monster:
-    point = MonsterLogo.getFigure(drawingProgress);
+    // point = MonsterLogo.getFigure(drawingProgress);
     break;
   case INIT:
   case init:
@@ -89,5 +109,6 @@ void loop() {
   }
 
   // plot(point);
-  plot(zoom(animationProgress,roll(animationProgress,point)));
+  //roll(animationProgress,point)
+  plot(zoom(animationProgress,point));
 }

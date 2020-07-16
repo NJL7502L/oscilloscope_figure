@@ -15,7 +15,7 @@ void pinInit(){
     analogWriteFrequency(PIN_Y,PWM_FRQ);
 }
 
-void plot(FourierTransform::CarCoor point){
+void plot(FourierTransform::CarCoorPoint point){
     point.x += 0.5;
     point.y += 0.5;
     analogWrite(PIN_X, point.x * PWM_RES);

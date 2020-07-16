@@ -4,10 +4,10 @@
 #include <Arduino.h>
 #include "FourierTransform.h"
 
-FourierTransform::CarCoor point;
+FourierTransform::CarCoorPoint point;
 
-FourierTransform::CarCoor roll(double t,FourierTransform::CarCoor point){
-    FourierTransform::CarCoor retVal;
+FourierTransform::CarCoorPoint roll(double t,FourierTransform::CarCoorPoint point){
+    FourierTransform::CarCoorPoint retVal;
     const double rollDeg = 360;
 
     double rollRad = rollDeg * ((2*PI)/360);
@@ -18,16 +18,16 @@ FourierTransform::CarCoor roll(double t,FourierTransform::CarCoor point){
     return retVal;
 }
 
-FourierTransform::CarCoor zoom(double t,FourierTransform::CarCoor point){
-    FourierTransform::CarCoor retVal;
+FourierTransform::CarCoorPoint zoom(double t,FourierTransform::CarCoorPoint point){
+    FourierTransform::CarCoorPoint retVal;
 
     retVal.x = point.x * t;
     retVal.y = point.y * t;
     return retVal;
 }
 
-FourierTransform::CarCoor initial(double t){
-    FourierTransform::CarCoor retVal;
+FourierTransform::CarCoorPoint initial(double t){
+    FourierTransform::CarCoorPoint retVal;
     if (t < 0.2){
         retVal.x = -0.5;
         retVal.y = -0.5 + (t/0.2) * (1.0);
