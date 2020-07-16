@@ -6,7 +6,8 @@
 class FourierTransform {
 public:
 
-    typedef double (*FourierFunction)(double);
+    // typedef double (*FourierFunction)(double);
+    using FourierFunction = double (*)(double);
     class CarCoorFunction{
     public:
         FourierFunction x;
