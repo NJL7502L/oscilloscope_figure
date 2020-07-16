@@ -7,19 +7,21 @@
 #include "FourierFigure/FusicLogo.h"
 #include "FourierFigure/MockLogo.h"
 #include "FourierFigure/MonsterLogo.h"
+#include "FourierFigure/Title.h"
 
 elapsedMillis elapAnimationTimer = 0;
 const double ANIMATION_DURATION = 1500;
 double animationProgress = 1;
 
 elapsedMicros elapDrawingTimer = 0;
-const double DRAWING_DURATION = 150000;
+const double DRAWING_DURATION = 75000;//150000;
 double drawingProgress = 0;
 
 enum{
   fusic     = 'a',
   mockmock  = 's',
   monster   = 'd',
+  title     = 'f',
   init      = 'q',
 };
 
@@ -29,6 +31,7 @@ char nextFigure = init;
 FourierTransform FusicLogo(FusicLogo_x,FusicLogo_y);
 FourierTransform MockLogo(MockLogo_x,MockLogo_y);
 FourierTransform MonsterLogo(MonsterLogo_x,MonsterLogo_y);
+FourierTransform Title(Title_x,Title_y);
 
 void setup() {
   pinInit();
@@ -37,15 +40,19 @@ void setup() {
 
   FusicLogo.p = "Fusic";
   FusicLogo.aspect_ratio(1,1);
-  FusicLogo.store_parameter(0,200,10000);
+  FusicLogo.store_parameter(0,100,5000);
 
   MockLogo.p = "mockmock";
   MockLogo.aspect_ratio(22,14);
-  MockLogo.store_parameter(0,200,10000);
+  MockLogo.store_parameter(0,200,5000);
 
   MonsterLogo.p = "Monster";
   MonsterLogo.aspect_ratio(10.5,15);
-  MonsterLogo.store_parameter(0,200,10000);
+  MonsterLogo.store_parameter(0,200,5000);
+
+  Title.p = "Title";
+  Title.aspect_ratio(35,13);
+  Title.store_parameter(0,50,5000);
 }
 
 void loop() {
@@ -76,6 +83,9 @@ void loop() {
     break;
   case monster:
     point = MonsterLogo.getFigure(drawingProgress);
+    break;
+  case title:
+    point = Title.getFigure(drawingProgress);
     break;
   case init:
     point = initial(drawingProgress);
