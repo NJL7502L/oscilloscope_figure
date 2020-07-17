@@ -9,6 +9,8 @@
 #include "FourierFigure/MonsterLogo.h"
 #include "FourierFigure/Title.h"
 #include "FourierFigure/Nail.h"
+#include "FourierFigure/Iot.h"
+#include "FourierFigure/Hormone.h"
 
 elapsedMillis elapAnimationTimer = 0;
 const double ANIMATION_DURATION = 1500;
@@ -19,11 +21,13 @@ const double DRAWING_DURATION = 75000;//150000;
 double drawingProgress = 0;
 
 enum{
-  fusic     = 'a',
+  title     = 'a',
   mockmock  = 's',
-  monster   = 'd',
-  title     = 'f',
-  nail      = 'g',
+  iot       = 'd',
+  monster   = 'c',
+  nail      = 'x',
+  hormone   = 'z',
+  fusic     = 'f',
   init      = 'q',
 };
 
@@ -35,6 +39,8 @@ FourierTransform MockLogo(MockLogo_x,MockLogo_y);
 FourierTransform MonsterLogo(MonsterLogo_x,MonsterLogo_y);
 FourierTransform Title(Title_x,Title_y);
 FourierTransform Nail(Nail_x,Nail_y);
+FourierTransform Iot(Iot_x,Iot_y);
+FourierTransform Hormone(Hormone_x,Hormone_y);
 
 void setup() {
   pinInit();
@@ -60,6 +66,14 @@ void setup() {
   Nail.p = "Nail";
   Nail.aspect_ratio(1,1);
   Nail.store_parameter(0,50,5000);
+  
+  Iot.p = "IoT";
+  Iot.aspect_ratio(75,40);
+  Iot.store_parameter(0,50,1000);
+
+  Hormone.p = "Hormone";
+  Hormone.aspect_ratio(1,1);
+  Hormone.store_parameter(0,50,5000);
 }
 
 void loop() {
@@ -80,30 +94,50 @@ void loop() {
   }
 
   switch (protFigure){
-  case fusic:
-    point = FusicLogo.getFigure(drawingProgress);
-    // point = zoom(animationProgress,point);
+  case title:
+    point = Title.getFigure(drawingProgress);
+
+    point = zoom(animationProgress,point);
     break;
   case mockmock:
     point = MockLogo.getFigure(drawingProgress);
-    // point = roll(animationProgress,point);
+
+    point = zoom(animationProgress,point);
+    break;
+  case iot:
+    point = Iot.getFigure(drawingProgress);
+
+    point = zoom(animationProgress,point);
+    point = roll(animationProgress,point);
     break;
   case monster:
     point = MonsterLogo.getFigure(drawingProgress);
-    break;
-  case title:
-    point = Title.getFigure(drawingProgress);
+
+    point = zoom(animationProgress,point);
     break;
   case nail:
     point = Nail.getFigure(drawingProgress);
+
+    point = zoom(animationProgress,point);
+    break;
+  case hormone:
+    point = Hormone.getFigure(drawingProgress);
+
+    point = zoom(animationProgress,point);
+    break;
+  case fusic:
+    point = FusicLogo.getFigure(drawingProgress);
+    point = zoom(animationProgress,point);
     break;
   case init:
     point = initial(drawingProgress);
+    point = zoom(animationProgress,point);
+    point = roll(animationProgress,point);
     break;
   default:
     break;
   }
 
-  // plot(point);
-  plot(zoom(animationProgress,roll(animationProgress,point)));
+  plot(point);
+  // plot(zoom(animationProgress,roll(animationProgress,point)));
 }
